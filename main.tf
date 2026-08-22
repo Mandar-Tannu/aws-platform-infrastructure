@@ -18,3 +18,12 @@ module "ecr" {
   common_tags = local.common_tags
 }
 
+module "iam_eks" {
+
+  source = "./modules/iam-eks"
+
+  project_name = local.project_name
+
+  common_tags = local.common_tags
+}
+
