@@ -52,3 +52,18 @@ module "eks_node_group" {
   common_tags = local.common_tags
 }
 
+module "iam_application" {
+
+  source = "./modules/iam-application"
+
+  project_name = local.project_name
+
+  aws_region = var.aws_region
+
+  ecr_repository_arn = module.ecr.repository_arn
+
+  eks_cluster_arn = module.eks.cluster_arn
+
+  common_tags = local.common_tags
+}
+
