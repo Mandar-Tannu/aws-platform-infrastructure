@@ -96,4 +96,32 @@ module "jenkins" {
   common_tags = local.common_tags
 }
 
+#########################################################
+# SonarQube EC2 Module
+#########################################################
+
+module "sonarqube" {
+
+  source = "./modules/ec2"
+
+  project_name = local.project_name
+
+  instance_name = "${local.project_name}-sonarqube"
+
+  ami_id = data.aws_ami.ubuntu.id
+
+  instance_type = "c7i-flex.large"
+
+  subnet_id = data.aws_subnets.default.ids[0]
+
+  security_group_ids = [
+    module.security_groups.sonarqube_security_group_id
+  ]
+
+  instance_profile_name = module.iam_application.sonarqube_instance_profile_name
+
+  root_volume_size = 20
+
+  common_tags = local.common_tags
+}
 
