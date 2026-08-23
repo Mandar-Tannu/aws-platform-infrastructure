@@ -37,3 +37,18 @@ module "eks" {
   common_tags      = local.common_tags
 }
 
+module "eks_node_group" {
+
+  source = "./modules/eks-node-group"
+
+  project_name = local.project_name
+
+  cluster_name = module.eks.cluster_name
+
+  node_role_arn = module.iam_eks.eks_node_role_arn
+
+  subnet_ids = data.aws_subnets.default.ids
+
+  common_tags = local.common_tags
+}
+
