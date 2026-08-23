@@ -18,18 +18,24 @@ resource "random_password" "database_password" {
 
 resource "aws_secretsmanager_secret" "database_secret" {
 
-  name = "${var.project_name}-database"
+  name = var.secret_name
 
-  description = "Database credentials"
+  description = "PostgreSQL database credentials"
 
   recovery_window_in_days = 7
 
   tags = merge(
+
     var.common_tags,
+
     {
-      Name = "${var.project_name}-database-secret"
+
+      Name = var.secret_name
+
     }
+
   )
+
 }
 
 #########################################################

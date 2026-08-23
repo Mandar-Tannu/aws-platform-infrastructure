@@ -1,28 +1,31 @@
 #########################################################
-# Project Configuration
-#########################################################
-
-variable "project_name" {
-  description = "Project Name"
-  type        = string
-}
-
-#########################################################
 # Database Configuration
 #########################################################
 
 variable "db_username" {
+
   description = "Database Username"
-  type        = string
+
+  type = string
 
   default = "postgres"
+
 }
 
 variable "db_name" {
-  description = "Database Name"
-  type        = string
 
-  default = "sonarqube"
+  description = "Database Name"
+
+  type = string
+
+}
+
+variable "secret_name" {
+
+  description = "AWS Secrets Manager secret name"
+
+  type = string
+
 }
 
 #########################################################
@@ -30,7 +33,10 @@ variable "db_name" {
 #########################################################
 
 variable "common_tags" {
+
   description = "Common Tags"
-  type        = map(string)
+
+  type = map(string)
+
 }
 

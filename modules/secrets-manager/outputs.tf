@@ -26,13 +26,3 @@ output "secret_version_id" {
 
 }
 
-output "database_password" {
-
-  description = "Generated Database Password"
-
-  value = random_password.database_password.result
-
-  sensitive = true
-
-}
-
