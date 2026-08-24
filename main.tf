@@ -293,3 +293,39 @@ module "jenkins_alb_route" {
   common_tags = local.common_tags
 }
 
+#########################################################
+# SonarQube ALB Route
+#########################################################
+
+module "sonarqube_alb_route" {
+
+  source = "./modules/alb-route"
+
+  project_name = local.project_name
+
+  listener_arn = module.alb.http_listener_arn
+
+  vpc_id = data.aws_vpc.default.id
+
+  target_group_name = "${local.project_name}-sonarqube"
+
+  target_type = "instance"
+
+  target_id = module.sonarqube.instance_id
+
+  port = 9000
+
+  protocol = "HTTP"
+
+  priority = 110
+
+  path_patterns = [
+    "/sonarqube",
+    "/sonarqube/*"
+  ]
+
+  health_check_path = "/"
+
+  common_tags = local.common_tags
+}
+
