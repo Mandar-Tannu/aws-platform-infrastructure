@@ -143,3 +143,33 @@ module "secrets_manager_sonarqube" {
 
 }
 
+#########################################################
+# SonarQube PostgreSQL RDS
+#########################################################
+
+module "rds_sonarqube" {
+
+  source = "./modules/rds"
+
+  project_name = local.project_name
+
+  database_identifier = "${local.project_name}-sonarqube-postgres"
+
+  db_name = "sonarqube"
+
+  database_secret_arn = module.secrets_manager_sonarqube.secret_arn
+
+  engine_version = "17"
+
+  instance_class = "db.t4g.micro"
+
+  allocated_storage = 20
+
+  subnet_ids = data.aws_subnets.default.ids
+
+  security_group_id = module.security_groups.rds_security_group_id
+
+  common_tags = local.common_tags
+
+}
+
