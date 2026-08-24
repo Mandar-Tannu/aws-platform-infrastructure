@@ -221,3 +221,19 @@ module "rds_application" {
 
 }
 
+#########################################################
+# Amazon S3 Module
+#########################################################
+
+module "s3" {
+
+  source = "./modules/s3"
+
+  project_name = local.project_name
+
+  bucket_name = local.project_name
+
+  common_tags = local.common_tags
+
+}
+
