@@ -191,3 +191,33 @@ module "secrets_manager_application" {
 
 }
 
+#########################################################
+# Application PostgreSQL RDS
+#########################################################
+
+module "rds_application" {
+
+  source = "./modules/rds"
+
+  project_name = local.project_name
+
+  database_identifier = "${local.project_name}-application-postgres"
+
+  db_name = "application"
+
+  database_secret_arn = module.secrets_manager_application.secret_arn
+
+  engine_version = "17"
+
+  instance_class = "db.t4g.micro"
+
+  allocated_storage = 20
+
+  subnet_ids = data.aws_subnets.default.ids
+
+  security_group_id = module.security_groups.rds_security_group_id
+
+  common_tags = local.common_tags
+
+}
+
