@@ -125,3 +125,21 @@ module "sonarqube" {
   common_tags = local.common_tags
 }
 
+#########################################################
+# SonarQube Database Secrets
+#########################################################
+
+module "secrets_manager_sonarqube" {
+
+  source = "./modules/secrets-manager"
+
+  secret_name = "${local.project_name}-sonarqube-database"
+
+  db_username = "postgres"
+
+  db_name = "sonarqube"
+
+  common_tags = local.common_tags
+
+}
+
