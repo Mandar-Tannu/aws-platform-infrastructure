@@ -173,3 +173,21 @@ module "rds_sonarqube" {
 
 }
 
+#########################################################
+# Application Database Secrets
+#########################################################
+
+module "secrets_manager_application" {
+
+  source = "./modules/secrets-manager"
+
+  secret_name = "${local.project_name}-application-database"
+
+  db_username = "postgres"
+
+  db_name = "application"
+
+  common_tags = local.common_tags
+
+}
+
