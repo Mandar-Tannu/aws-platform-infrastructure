@@ -257,3 +257,39 @@ module "alb" {
 
 }
 
+#########################################################
+# Jenkins ALB Route
+#########################################################
+
+module "jenkins_alb_route" {
+
+  source = "./modules/alb-route"
+
+  project_name = local.project_name
+
+  listener_arn = module.alb.http_listener_arn
+
+  vpc_id = data.aws_vpc.default.id
+
+  target_group_name = "${local.project_name}-jenkins"
+
+  target_type = "instance"
+
+  target_id = module.jenkins.instance_id
+
+  port = 8080
+
+  protocol = "HTTP"
+
+  priority = 100
+
+  path_patterns = [
+    "/jenkins",
+    "/jenkins/*"
+  ]
+
+  health_check_path = "/login"
+
+  common_tags = local.common_tags
+}
+
