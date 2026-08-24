@@ -288,7 +288,7 @@ module "jenkins_alb_route" {
     "/jenkins/*"
   ]
 
-  health_check_path = "/login"
+  health_check_path = "/jenkins/login"
 
   common_tags = local.common_tags
 }
