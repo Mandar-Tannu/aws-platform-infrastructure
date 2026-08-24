@@ -237,3 +237,23 @@ module "s3" {
 
 }
 
+#########################################################
+# Application Load Balancer Module
+#########################################################
+
+module "alb" {
+
+  source = "./modules/alb"
+
+  project_name = local.project_name
+
+  vpc_id = data.aws_vpc.default.id
+
+  subnet_ids = data.aws_subnets.default.ids
+
+  security_group_id = module.security_groups.alb_security_group_id
+
+  common_tags = local.common_tags
+
+}
+
