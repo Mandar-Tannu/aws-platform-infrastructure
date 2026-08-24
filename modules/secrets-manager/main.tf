@@ -22,7 +22,7 @@ resource "aws_secretsmanager_secret" "database_secret" {
 
   description = "PostgreSQL database credentials"
 
-  recovery_window_in_days = 7
+  recovery_window_in_days = 0
 
   tags = merge(
 
