@@ -191,7 +191,7 @@ resource "aws_security_group" "rds_sg" {
   )
 }
 
-# RDS PostgreSQL Ingress
+# RDS PostgreSQL Ingress from EKS Worker Node
 resource "aws_vpc_security_group_ingress_rule" "postgres_from_eks" {
 
   security_group_id = aws_security_group.rds_sg.id
@@ -205,6 +205,22 @@ resource "aws_vpc_security_group_ingress_rule" "postgres_from_eks" {
 
   description = "Allow PostgreSQL access from EKS Worker Nodes"
 }
+
+# RDS PostgreSQL Ingress from SonarQube EC2
+resource "aws_vpc_security_group_ingress_rule" "postgres_from_sonarqube" {
+
+  security_group_id = aws_security_group.rds_sg.id
+
+  referenced_security_group_id = aws_security_group.sonarqube_sg.id
+
+  from_port = 5432
+  to_port   = 5432
+
+  ip_protocol = "tcp"
+
+  description = "Allow PostgreSQL access from SonarQube EC2"
+}
+
 
 # RDS PostgreSQL Egress
 resource "aws_vpc_security_group_egress_rule" "rds_outbound" {
