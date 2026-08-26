@@ -18,3 +18,7 @@ variable "common_tags" {
 
 }
 
+variable "alb_dns_name" {
+  description = "Application Load Balancer DNS name used in the self-signed certificate"
+  type        = string
+}

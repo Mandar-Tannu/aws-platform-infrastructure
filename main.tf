@@ -341,7 +341,8 @@ module "tls" {
 
   project_name = local.project_name
 
+  alb_dns_name = "go-kyc-user-service-alb-1469666462.ap-south-1.elb.amazonaws.com"
+
   common_tags = local.common_tags
 
 }
-

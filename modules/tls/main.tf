@@ -31,17 +31,16 @@ resource "tls_self_signed_cert" "this" {
   ]
 
   dns_names = [
-    "jenkins-demo.local"
+    var.alb_dns_name
   ]
 
   subject {
 
-    common_name = "jenkins-demo.local"
+    common_name = var.alb_dns_name
 
     organization = "Demo"
 
   }
-
 }
 
 #########################################################
