@@ -34,3 +34,11 @@ output "http_listener_arn" {
 
 }
 
+output "https_listener_arn" {
+
+  description = "HTTPS Listener ARN"
+
+  value = aws_lb_listener.https.arn
+
+}
+

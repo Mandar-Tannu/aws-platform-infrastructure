@@ -35,3 +35,15 @@ variable "common_tags" {
   type        = map(string)
 }
 
+#########################################################
+# HTTPS
+#########################################################
+
+variable "certificate_arn" {
+
+  description = "AWS ACM Certificate ARN"
+
+  type = string
+
+}
+

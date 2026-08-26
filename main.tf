@@ -253,6 +253,8 @@ module "alb" {
 
   security_group_id = module.security_groups.alb_security_group_id
 
+  certificate_arn = module.tls.certificate_arn
+
   common_tags = local.common_tags
 
 }
@@ -267,7 +269,7 @@ module "jenkins_alb_route" {
 
   project_name = local.project_name
 
-  listener_arn = module.alb.http_listener_arn
+  listener_arn = module.alb.https_listener_arn
 
   vpc_id = data.aws_vpc.default.id
 
@@ -303,7 +305,7 @@ module "sonarqube_alb_route" {
 
   project_name = local.project_name
 
-  listener_arn = module.alb.http_listener_arn
+  listener_arn = module.alb.https_listener_arn
 
   vpc_id = data.aws_vpc.default.id
 
@@ -327,5 +329,19 @@ module "sonarqube_alb_route" {
   health_check_path = "/"
 
   common_tags = local.common_tags
+}
+
+#########################################################
+# TLS Module
+#########################################################
+
+module "tls" {
+
+  source = "./modules/tls"
+
+  project_name = local.project_name
+
+  common_tags = local.common_tags
+
 }
 
