@@ -346,3 +346,34 @@ module "tls" {
   common_tags = local.common_tags
 
 }
+
+#########################################################
+# EKS Authentication
+#########################################################
+
+data "aws_eks_cluster_auth" "this" {
+
+  name = module.eks.cluster_name
+
+}
+
+#########################################################
+# AWS Load Balancer Controller
+#########################################################
+
+module "aws_load_balancer_controller" {
+
+  source = "./modules/aws-load-balancer-controller"
+
+  cluster_name = module.eks.cluster_name
+
+  region = "ap-south-1"
+
+  vpc_id = data.aws_vpc.default.id
+
+  helm_chart_version = "1.14.0"
+
+  common_tags = local.common_tags
+
+}
+
